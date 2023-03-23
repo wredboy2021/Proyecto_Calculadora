@@ -4,7 +4,8 @@ frame=Frame(Root)
 frame.pack()
 Resultado=0
 Operacion=""
-Pantalla=Entry(frame)
+Numerovariable=StringVar()
+Pantalla=Entry(frame,textvariable=Numerovariable)
 Pantalla.config(width=27 ,background="Black",fg="white",justify="right")
 Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=4)
 
@@ -13,22 +14,21 @@ Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=4)
 
 def Funcionalidad(num):
     global Operacion
-    Operacion = Operacion + str(num)
-    Pantalla.delete(0, END)
-    Pantalla.insert(END, Operacion)
-
-
-def calculo(operacion):
-    global Operacion
-    if Operacion != '':
-        try:
-            resultado = str(eval(operacion)) 
-        except ZeroDivisionError:
-            resultado = 'ERROR'
-        Pantalla.delete(0,END)
-        Pantalla.insert(END, resultado)
+    Operacion=Operacion+str(num)
+    if Numerovariable!="":
+        Numerovariable.set(Operacion)
     else:
-        pass
+        Numerovariable.set(Numerovariable.get()+str(num))
+
+
+def calculo(operacion): 
+    global Operacion
+    try:
+        Operacion=str(eval(Operacion))
+        Numerovariable.set(Operacion)
+    except:
+        Numerovariable.set("ERROR")
+    Operacion = ""
 
 def limpiarPantalla():
     global Operacion
