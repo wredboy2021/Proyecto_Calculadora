@@ -4,8 +4,7 @@ frame=Frame(Root)
 frame.pack()
 Resultado=0
 Operacion=""
-numerovariable = StringVar()
-Pantalla=Entry(frame,textvariable=numerovariable)
+Pantalla=Entry(frame)
 Pantalla.config(width=27 ,background="Black",fg="white",justify="right")
 Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=4)
 
@@ -14,55 +13,29 @@ Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=4)
 
 def Funcionalidad(num):
     global Operacion
-    if Operacion!="":
-        numerovariable.set(num)
-        Operacion=""
-    else:    
-        numerovariable.set((numerovariable.get()) + str(num))
-    
-def borrar():
-    global Resultado
-    Resultado=0
-    numerovariable.set("")
-    Pantalla.delete(0,END)
-    
-def suma(num):
+    Operacion = Operacion + str(num)
+    Pantalla.delete(0, END)
+    Pantalla.insert(END, Operacion)
+
+def calculo(operacion):
     global Operacion
-    global Resultado
-    Resultado += int(num)
-    Operacion = "suma"
-    numerovariable.set(Resultado)
+    if Operacion != '':
+        try:
+            resultado = str(eval(operacion)) 
+        except ZeroDivisionError:
+            resultado = 'ERROR'
+        Pantalla.delete(0,END)
+        Pantalla.insert(END, resultado)
+    else:
+        pass
 
-def resta(num):
+def limpiarPantalla():
     global Operacion
-    global Resultado
-    Resultado-=int(num)
-    Operacion="resta"
-    numerovariable.set(Resultado)
-
-def multiplicacion(num):
-    pass
-   
-def division(num):
-    global Operacion
-    global Resultado
-    Resultado/=int(num)
-    Operacion="division"
-    numerovariable.set(Resultado)
-
-def potenciacion(num):
-    global Operacion
-    global Resultado
-    Resultado=Resultado**int(num)
-    Operacion="potenciacion"
-    numerovariable.set(Resultado)
+    Operacion = ''
+    Pantalla.delete(0, END)
 
 
-def Igual():
-    global Resultado
-    Resultado = Resultado + int(numerovariable.get())
-    numerovariable.set(Resultado)
-    Resultado=0
+
 
 #Configuracion de botones
 
@@ -80,7 +53,7 @@ Tres = Button(frame, text=3, bg="Salmon", command=lambda: Funcionalidad(3))
 Tres.config(width=5)
 Tres.grid(row=2,column=3)
 
-Division = Button(frame, text="/", bg="orange",command=lambda:division(numerovariable.get()))
+Division = Button(frame, text="/", bg="orange",command=lambda:Funcionalidad("/"))
 Division.config(width=5)
 Division.grid(row=2, column=4)
 
@@ -98,7 +71,7 @@ Six = Button(frame, text=6, bg="Salmon", command=lambda: Funcionalidad(6))
 Six.config(width=5)
 Six.grid(row=3, column=3)
 
-Multiplicacion = Button(frame, text="*", bg="orange",command=lambda:multiplicacion(numerovariable.get()))
+Multiplicacion = Button(frame, text="*", bg="orange",command=lambda:Funcionalidad("*"))
 Multiplicacion.config(width=5)
 Multiplicacion.grid(row=3, column=4)
 
@@ -116,13 +89,13 @@ nueve = Button(frame, text=9, bg="Salmon", command=lambda: Funcionalidad(9))
 nueve.config(width=5)
 nueve.grid(row=4, column=3)
 
-Resta = Button(frame, text="-", bg="orange",command=lambda:resta(numerovariable.get()))
+Resta = Button(frame, text="-", bg="orange",command=lambda:Funcionalidad("-"))
 Resta.config(width=5)
 Resta.grid(row=4, column=4)
 
 #Fila 4
 
-Suma = Button(frame, text="+", bg="orange",command=lambda: suma(numerovariable.get()))
+Suma = Button(frame, text="+", bg="orange",command=lambda:Funcionalidad("+"))
 Suma.config(width=5)
 Suma.grid(row=5, column=1)
 
@@ -134,13 +107,13 @@ coma = Button(frame, text=",", bg="orange", command=lambda: Funcionalidad(","))
 coma.config(width=5)
 coma.grid(row=5, column=3)
 
-igual = Button(frame, text="=", bg="orange",command=lambda:Igual())
+igual = Button(frame, text="=", bg="orange",command=lambda:calculo(Operacion))
 igual.config(width=5)
 igual.grid(row=5, column=4)
 
 #fila de opciones extra
 
-borrar = Button(frame, text="DEL", bg="orange",command=borrar)
+borrar = Button(frame, text="DEL", bg="orange",command=lambda:limpiarPantalla())
 borrar.config(width=5)
 borrar.grid(row=6, column=2)
 
@@ -148,7 +121,7 @@ Modulo = Button(frame, text="%", bg="orange",command=lambda:Funcionalidad("%") )
 Modulo.config(width=5)
 Modulo.grid(row=6, column=3)
 
-Potenciacion= Button(frame, text="**",bg="orange",command=lambda:potenciacion(numerovariable.get()))
+Potenciacion= Button(frame, text="**",bg="orange",command=lambda:Funcionalidad("**"))
 Potenciacion.config(width=5)
 Potenciacion.grid(row=6,column=4)
 
