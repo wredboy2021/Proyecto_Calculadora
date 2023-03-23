@@ -17,6 +17,7 @@ def Funcionalidad(num):
     Pantalla.delete(0, END)
     Pantalla.insert(END, Operacion)
 
+
 def calculo(operacion):
     global Operacion
     if Operacion != '':
@@ -31,7 +32,7 @@ def calculo(operacion):
 
 def limpiarPantalla():
     global Operacion
-    Operacion = ''
+    Operacion=""
     Pantalla.delete(0, END)
 
 
@@ -40,6 +41,7 @@ def limpiarPantalla():
 #Configuracion de botones
 
 #Fila 1
+Multiples_comandos=lambda:[Funcionalidad(1)]
 
 One = Button(frame, text=1, bg="Salmon",command=lambda:Funcionalidad(1))
 One.config(width=5)
