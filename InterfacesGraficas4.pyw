@@ -1,5 +1,6 @@
 from tkinter import *
 Root=Tk()
+Root.title("Opciones de viaje")
 Playa=IntVar()
 Mountain=IntVar()
 Turismo=IntVar()
