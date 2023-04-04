@@ -7,7 +7,7 @@ Operacion=""
 Numerovariable=StringVar()
 Pantalla=Entry(frame,textvariable=Numerovariable)
 Pantalla.config(width=27 ,background="Black",fg="white",justify="right")
-Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=4)
+Pantalla.grid(row=1,column=1,pady=5,padx=5,columnspan=5)
 
 
 #Funciones botones
